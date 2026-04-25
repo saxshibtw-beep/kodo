@@ -1349,7 +1349,7 @@
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   }
 
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const email = input.value.trim();
 
@@ -1369,10 +1369,24 @@
       return;
     }
 
-    // Success
-    showStatus('SIGNAL RECEIVED ◉ YOU\'RE ON THE FREQUENCY ◉ DROP 001 INCOMING', '');
-    input.value = '';
-    input.blur();
+    // Send to Formspree
+    showStatus('◉ TRANSMITTING...', '');
+    try {
+      const res = await fetch('https://formspree.io/f/xnjlwkql', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ email })
+      });
+      if (res.ok) {
+        showStatus('SIGNAL RECEIVED ◉ YOU\'RE ON THE FREQUENCY ◉ DROP 001 INCOMING', '');
+        input.value = '';
+        input.blur();
+      } else {
+        showStatus('◉ TRANSMISSION FAILED ◉ TRY AGAIN', 'error');
+      }
+    } catch {
+      showStatus('◉ NO CONNECTION ◉ CHECK SIGNAL AND RETRY', 'error');
+    }
   });
 
   // Clear error state when user starts typing again
