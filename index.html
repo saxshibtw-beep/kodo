@@ -154,6 +154,88 @@
     50% { opacity: 0.6; box-shadow: 0 0 0 8px rgba(232, 55, 29, 0); }
   }
 
+  /* HERO SIGNUP — above the fold, impossible to miss */
+  .hero-signup-wrap {
+    padding: 40px 32px;
+    border-top: 2px solid var(--red);
+    border-bottom: 1px solid rgba(241,239,232,0.1);
+    background: rgba(232,55,29,0.04);
+  }
+  .hero-signup-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--red);
+    font-weight: 700;
+    margin-bottom: 24px;
+  }
+  .hero-signup-form {
+    display: flex;
+    gap: 0;
+    max-width: 640px;
+    border: 2px solid var(--fg);
+    margin-bottom: 16px;
+  }
+  .hero-signup-form input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 18px 20px;
+    color: var(--fg);
+    font-family: 'Anton', sans-serif;
+    font-size: 18px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    outline: none;
+  }
+  .hero-signup-form input::placeholder { color: var(--mid); font-size: 16px; }
+  .hero-signup-form button {
+    background: var(--red);
+    color: var(--fg);
+    border: none;
+    padding: 18px 28px;
+    font-family: 'Anton', sans-serif;
+    font-size: 16px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: none;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+  .hero-signup-form button:hover { background: var(--fg); color: var(--bg); }
+  .hero-signup-status {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    opacity: 0;
+    transition: opacity 0.35s;
+    min-height: 16px;
+    margin-bottom: 16px;
+  }
+  .hero-signup-status.show { opacity: 1; }
+  .hero-signup-status.error { color: var(--red); animation: shake 0.4s ease; }
+  .hero-signup-meta {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mid);
+    flex-wrap: wrap;
+  }
+  .hero-signup-meta .dot { color: var(--red); }
+  @media (max-width: 768px) {
+    .hero-signup-wrap { padding: 28px 16px; }
+    .hero-signup-form { max-width: 100%; flex-direction: column; border-width: 1px; }
+    .hero-signup-form input { padding: 16px; font-size: 16px; border-bottom: 1px solid var(--fg); }
+    .hero-signup-form button { padding: 16px; font-size: 15px; }
+    .hero-signup-meta { gap: 8px; font-size: 9px; }
+  }
+
   /* HERO */
   .hero {
     min-height: 100vh;
@@ -1096,6 +1178,23 @@
     </div>
   </div>
 
+  <!-- HERO SIGNUP — visible immediately on landing -->
+  <div class="hero-signup-wrap">
+    <div class="hero-signup-label">◉ DROP 001 · 50 PIECES · NO RESTOCK · SIGN UP BEFORE IT'S GONE</div>
+    <form class="hero-signup-form" id="heroSignupForm" novalidate>
+      <input type="email" id="heroEmailInput" placeholder="YOUR EMAIL" autocomplete="email"/>
+      <button type="submit">GET EARLY ACCESS</button>
+    </form>
+    <div class="hero-signup-status" id="heroSignupStatus"></div>
+    <div class="hero-signup-meta">
+      <span>VOID BLACK · 25 PCS</span>
+      <span class="dot">◉</span>
+      <span>VOID WHITE · 25 PCS</span>
+      <span class="dot">◉</span>
+      <span>NUMBERED EDITION</span>
+    </div>
+  </div>
+
   <div class="hero-bottom">
     <div class="anim-in d1">
       <h3>01 / Origin</h3>
@@ -1317,6 +1416,47 @@
   }
   setInterval(updateTimer, 1000);
   updateTimer();
+
+  // Hero signup form
+  const heroForm = document.getElementById('heroSignupForm');
+  const heroInput = document.getElementById('heroEmailInput');
+  const heroStatus = document.getElementById('heroSignupStatus');
+  let heroTimeout;
+
+  function showHeroStatus(msg, type) {
+    clearTimeout(heroTimeout);
+    heroStatus.textContent = msg;
+    heroStatus.className = 'hero-signup-status show ' + (type || '');
+    if (type === 'error') {
+      heroTimeout = setTimeout(() => heroStatus.classList.remove('show'), 4000);
+    }
+  }
+
+  heroForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = heroInput.value.trim();
+    if (!email) { showHeroStatus('◉ ENTER YOUR EMAIL', 'error'); return; }
+    if (!email.includes('@')) { showHeroStatus('◉ INVALID EMAIL', 'error'); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showHeroStatus('◉ CHECK YOUR EMAIL', 'error'); return; }
+    showHeroStatus('◉ TRANSMITTING...', '');
+    try {
+      const res = await fetch('https://formspree.io/f/xnjlwkql', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ email })
+      });
+      if (res.ok) {
+        showHeroStatus('◉ SIGNAL RECEIVED · YOU\'RE ON THE LIST · DROP 001 INCOMING', '');
+        heroInput.value = '';
+      } else {
+        showHeroStatus('◉ FAILED · TRY AGAIN', 'error');
+      }
+    } catch { showHeroStatus('◉ NO CONNECTION · RETRY', 'error'); }
+  });
+
+  heroInput.addEventListener('input', () => {
+    if (heroStatus.classList.contains('error')) heroStatus.classList.remove('show');
+  });
 
   // Signup form — custom validation with KODO-vibe messages
   const form = document.getElementById('signupForm');
