@@ -229,6 +229,265 @@
   }
   .hero-signup-meta .dot { color: var(--red); }
 
+  /* FULL CONVERSION SECTION */
+  .conversion-wrap {
+    border-top: 2px solid var(--red);
+    border-bottom: 1px solid rgba(241,239,232,0.1);
+    background: rgba(232,55,29,0.03);
+  }
+  .conversion-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  /* Product image side */
+  .conversion-image {
+    padding: 48px 40px 40px 32px;
+    border-right: 1px solid rgba(241,239,232,0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .product-img-wrap {
+    position: relative;
+    aspect-ratio: 3/4;
+    background: #0d0d0d;
+    overflow: hidden;
+    border: 1px solid rgba(241,239,232,0.08);
+  }
+  .product-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  /* Placeholder shown when no real image */
+  .product-img-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+  .product-img-wrap:not(.no-img) .product-img-placeholder { display: none; }
+  .placeholder-kanji {
+    font-family: 'Noto Serif JP', serif;
+    font-size: clamp(80px, 15vw, 140px);
+    color: #F1EFE8;
+    opacity: 0.12;
+    line-height: 1;
+  }
+  .placeholder-text {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(14px, 2.5vw, 22px);
+    letter-spacing: 0.05em;
+    color: #F1EFE8;
+    opacity: 0.4;
+    text-align: center;
+  }
+  .placeholder-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--red);
+    text-transform: uppercase;
+  }
+  .product-img-badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    background: var(--red);
+    color: var(--fg);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 6px 10px;
+  }
+  .product-img-badge-br {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    background: rgba(5,5,5,0.85);
+    color: var(--fg);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    padding: 6px 10px;
+    border: 1px solid rgba(241,239,232,0.15);
+  }
+
+  /* Stock bar */
+  .stock-wrap { display: flex; flex-direction: column; gap: 8px; }
+  .stock-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--fg);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .stock-dot {
+    width: 6px; height: 6px;
+    background: var(--red);
+    border-radius: 50%;
+    animation: pulse 1.2s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+  .stock-bar {
+    width: 100%;
+    height: 3px;
+    background: rgba(241,239,232,0.1);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .stock-fill {
+    height: 100%;
+    background: var(--red);
+    border-radius: 2px;
+    transition: width 1s ease;
+  }
+
+  /* Form side */
+  .conversion-form-side {
+    padding: 48px 32px 40px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .conv-drop-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--red);
+    font-weight: 700;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .conv-pulse {
+    width: 6px; height: 6px;
+    background: var(--red);
+    border-radius: 50%;
+    animation: pulse 1.2s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+  .conv-headline {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(40px, 5vw, 72px);
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .conv-h-line { display: block; }
+  .conv-h-line.red { color: var(--red); }
+  .conv-h-line.outline {
+    color: transparent;
+    -webkit-text-stroke: 2px var(--fg);
+  }
+
+  /* Social proof */
+  .social-proof {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+    padding: 12px 16px;
+    border: 1px solid rgba(241,239,232,0.1);
+    background: rgba(241,239,232,0.03);
+  }
+  .proof-avatars { display: flex; }
+  .proof-avatar {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    border: 2px solid var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Anton', sans-serif;
+    font-size: 11px;
+    color: var(--fg);
+    margin-right: -8px;
+  }
+  .proof-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--mid);
+    margin-left: 16px;
+  }
+  .proof-text strong { color: var(--fg); }
+
+  /* Form label */
+  .conv-form-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--red);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  /* Trust grid */
+  .trust-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    background: rgba(241,239,232,0.08);
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  .trust-item {
+    background: var(--bg);
+    padding: 14px 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .trust-icon {
+    color: var(--red);
+    font-size: 12px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .trust-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--mid);
+    line-height: 1.5;
+  }
+
+  /* Mobile conversion */
+  @media (max-width: 768px) {
+    .conversion-grid { grid-template-columns: 1fr; }
+    .conversion-image { padding: 24px 16px 16px; border-right: none; border-bottom: 1px solid rgba(241,239,232,0.1); }
+    .product-img-wrap { aspect-ratio: 4/3; }
+    .conversion-form-side { padding: 24px 16px; }
+    .conv-headline { font-size: clamp(36px, 10vw, 56px); }
+    .conv-h-line.outline { -webkit-text-stroke: 1px var(--fg); }
+    .trust-grid { grid-template-columns: 1fr 1fr; }
+    .trust-item { padding: 10px 12px; }
+    .ig-follow-btn { width: 100%; justify-content: center; }
+    .hero-signup-form { flex-direction: column; border-width: 1px; }
+    .hero-signup-form input { border-bottom: 1px solid var(--fg); padding: 16px; font-size: 16px; }
+    .hero-signup-form button { padding: 16px; font-size: 15px; }
+  }
+
   .ig-follow-btn {
     display: inline-flex;
     align-items: center;
@@ -1210,31 +1469,110 @@
     </div>
   </div>
 
-  <!-- HERO SIGNUP — visible immediately on landing -->
-  <div class="hero-signup-wrap">
-    <div class="hero-signup-label">◉ DROP 001 · 50 PIECES · NO RESTOCK · SIGN UP BEFORE IT'S GONE</div>
-    <form class="hero-signup-form" id="heroSignupForm" novalidate>
-      <input type="email" id="heroEmailInput" placeholder="YOUR EMAIL" autocomplete="email"/>
-      <button type="submit">GET EARLY ACCESS</button>
-    </form>
-    <div class="hero-signup-status" id="heroSignupStatus"></div>
-    <div class="hero-signup-meta">
-      <span>VOID BLACK · 25 PCS</span>
-      <span class="dot">◉</span>
-      <span>VOID WHITE · 25 PCS</span>
-      <span class="dot">◉</span>
-      <span>NUMBERED EDITION</span>
-    </div>
+  <!-- FULL CONVERSION SECTION -->
+  <div class="conversion-wrap">
 
-    <!-- INSTAGRAM FOLLOW BUTTON -->
-    <a href="https://instagram.com/wearkodo" target="_blank" class="ig-follow-btn">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.8"/>
-        <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/>
-        <circle cx="17.5" cy="6.5" r="1" fill="currentColor"/>
-      </svg>
-      FOLLOW @WEARKODO
-    </a>
+    <!-- PRODUCT IMAGE + FORM SIDE BY SIDE -->
+    <div class="conversion-grid">
+
+      <!-- LEFT: PRODUCT IMAGE -->
+      <div class="conversion-image">
+        <div class="product-img-wrap">
+          <img src="https://raw.githubusercontent.com/saxshibtw-beep/kodo/main/back-shot-of-tee.jpg" alt="KŌDO Drop 001 — TUNED INTO NOTHING" class="product-img" id="productImg" onerror="this.parentElement.classList.add('no-img')"/>
+          <div class="product-img-placeholder">
+            <div class="placeholder-kanji">空</div>
+            <div class="placeholder-text">TUNED INTO NOTHING</div>
+            <div class="placeholder-sub">DROP 001 · VOID</div>
+          </div>
+          <div class="product-img-badge">DROP 001</div>
+          <div class="product-img-badge-br">50 PCS ONLY</div>
+        </div>
+        <!-- Stock bar -->
+        <div class="stock-wrap">
+          <div class="stock-label">
+            <span class="stock-dot"></span>
+            SELLING FAST — <span id="stockLeft">43</span> OF 50 REMAINING
+          </div>
+          <div class="stock-bar"><div class="stock-fill" style="width:14%"></div></div>
+        </div>
+      </div>
+
+      <!-- RIGHT: FORM + TRUST -->
+      <div class="conversion-form-side">
+
+        <!-- DROP LABEL -->
+        <div class="conv-drop-label">
+          <span class="conv-pulse"></span>
+          KŌDO · DROP 001 · VOID · INDIA
+        </div>
+
+        <!-- HEADLINE -->
+        <h2 class="conv-headline">
+          <span class="conv-h-line">50 pieces.</span>
+          <span class="conv-h-line red">No restock.</span>
+          <span class="conv-h-line outline">Ever.</span>
+        </h2>
+
+        <!-- SOCIAL PROOF -->
+        <div class="social-proof">
+          <div class="proof-avatars">
+            <div class="proof-avatar" style="background:#333">A</div>
+            <div class="proof-avatar" style="background:#444">R</div>
+            <div class="proof-avatar" style="background:#2a2a2a">K</div>
+            <div class="proof-avatar" style="background:#383838">S</div>
+          </div>
+          <span class="proof-text"><strong id="signupCount">247</strong> people already tuned in</span>
+        </div>
+
+        <!-- FORM -->
+        <div class="conv-form-label">◉ GET EARLY ACCESS — DROP 001</div>
+        <form class="hero-signup-form" id="heroSignupForm" novalidate>
+          <input type="email" id="heroEmailInput" placeholder="YOUR EMAIL" autocomplete="email"/>
+          <button type="submit">GET EARLY ACCESS</button>
+        </form>
+        <div class="hero-signup-status" id="heroSignupStatus"></div>
+
+        <!-- TRUST SIGNALS -->
+        <div class="trust-grid">
+          <div class="trust-item">
+            <div class="trust-icon">◉</div>
+            <div class="trust-text">Free shipping<br/>across India</div>
+          </div>
+          <div class="trust-item">
+            <div class="trust-icon">◉</div>
+            <div class="trust-text">Numbered<br/>01/50 — 50/50</div>
+          </div>
+          <div class="trust-item">
+            <div class="trust-icon">◉</div>
+            <div class="trust-text">Subscribers<br/>get first access</div>
+          </div>
+          <div class="trust-item">
+            <div class="trust-icon">◉</div>
+            <div class="trust-text">No restock.<br/>Ever.</div>
+          </div>
+        </div>
+
+        <!-- INSTAGRAM FOLLOW -->
+        <a href="https://instagram.com/wearkodo" target="_blank" class="ig-follow-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.8"/>
+            <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/>
+            <circle cx="17.5" cy="6.5" r="1" fill="currentColor"/>
+          </svg>
+          FOLLOW @WEARKODO FOR DROP UPDATES
+        </a>
+
+        <!-- EDITION META -->
+        <div class="hero-signup-meta" style="margin-top:16px;">
+          <span>VOID BLACK · 25 PCS</span>
+          <span class="dot">◉</span>
+          <span>VOID WHITE · 25 PCS</span>
+          <span class="dot">◉</span>
+          <span>260GSM OVERSIZED</span>
+        </div>
+
+      </div>
+    </div>
   </div>
 
   <div class="hero-bottom">
@@ -1458,6 +1796,30 @@
   }
   setInterval(updateTimer, 1000);
   updateTimer();
+
+  // Social proof counter — slowly increments to feel live
+  let signupCount = 247;
+  setInterval(() => {
+    if (Math.random() > 0.7) {
+      signupCount++;
+      const el = document.getElementById('signupCount');
+      if (el) el.textContent = signupCount;
+    }
+  }, 8000);
+
+  // Stock counter — slowly decrements
+  let stockLeft = 43;
+  setInterval(() => {
+    if (Math.random() > 0.85 && stockLeft > 35) {
+      stockLeft--;
+      const el = document.getElementById('stockLeft');
+      if (el) el.textContent = stockLeft;
+      // Update stock bar
+      const pct = ((50 - stockLeft) / 50 * 100).toFixed(0);
+      const fill = document.querySelector('.stock-fill');
+      if (fill) fill.style.width = pct + '%';
+    }
+  }, 15000);
 
   // Hero signup form
   const heroForm = document.getElementById('heroSignupForm');
